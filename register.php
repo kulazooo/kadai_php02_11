@@ -11,18 +11,18 @@ try {
     exit('DBConnectError:' . $e->getMessage());
 }
 
-try {
-    $dbh = new PDO($pdo, $username, $password);
-} catch (PDOException $e) {
-    $msg = $e->getMessage();
-}
+// try {
+//     $dbh = new PDO($pdo, $username, $password);
+// } catch (PDOException $e) {
+//     $msg = $e->getMessage();
+// }
 
 // 1. SQL文を用意
 $stmt = $pdo->prepare("INSERT INTO gs_an_table(name, mail, pass)
                         VALUES(NULL, :name, :mail, :pass, )");
 
 //フォームに入力されたmailがすでに登録されていないかチェック
-$sql = "SELECT * FROM users WHERE mail = :mail";
+$sql = "SELECT * FROM gs_an_table WHERE mail = :mail";
 $stmt = $dbh->prepare($sql);
 $stmt->bindValue(':mail', $mail);
 $stmt->execute();
@@ -32,7 +32,7 @@ if ($member['mail'] === $mail) {
     $link = '<a href="signup.php">戻る</a>';
 } else {
     //登録されていなければinsert 
-    $sql = "INSERT INTO users(name, mail, pass) VALUES (:name, :mail, :pass)";
+    $sql = "INSERT INTO gs_an_table(name, mail, pass) VALUES (:name, :mail, :pass)";
     $stmt = $dbh->prepare($sql);
     $stmt->bindValue(':name', $name);
     $stmt->bindValue(':mail', $mail);
