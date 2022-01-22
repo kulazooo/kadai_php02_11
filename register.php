@@ -4,12 +4,6 @@ $name = $_POST['name'];
 $mail = $_POST['mail'];
 $pass = password_hash($_POST['pass'], PASSWORD_DEFAULT);
 
-function connect(){
-  $pdo = new PDO('mysql:dbname=gs_db;charset=utf8;host=localhost','root','root');
-} 
-
-
-
 try {
     //ID:'root', Password: 'root'
     $pdo = new PDO('mysql:dbname=gs_db;charset=utf8;host=localhost', 'root', 'root');
