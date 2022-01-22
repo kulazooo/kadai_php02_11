@@ -3,15 +3,12 @@
 $name = $_POST['name'];
 $mail = $_POST['mail'];
 $pass = password_hash($_POST['pass'], PASSWORD_DEFAULT);
-$pdo = "mysql:dbname=gs_db; charset=utf8";
-$username = "root";
-$password = "root";
 
-try {
-    $dbh = new PDO($pdo, $username, $password);
-} catch (PDOException $e) {
-    $msg = $e->getMessage();
-}
+function connect(){
+  $pdo = new PDO('mysql:dbname=gs_db;charset=utf8;host=localhost','root','root');
+} 
+
+
 
 try {
     //ID:'root', Password: 'root'
@@ -19,6 +16,13 @@ try {
 } catch (PDOException $e) {
     exit('DBConnectError:' . $e->getMessage());
 }
+
+try {
+    $dbh = new PDO($pdo, $username, $password);
+} catch (PDOException $e) {
+    $msg = $e->getMessage();
+}
+
 // 1. SQL文を用意
 $stmt = $pdo->prepare("INSERT INTO gs_an_table(name, mail, pass)
                         VALUES(NULL, :name, :mail, :pass, )");
